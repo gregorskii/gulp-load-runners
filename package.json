@@ -1,5 +1,5 @@
 {
-  "name": "gulp-run-plugins",
+  "name": "gulp-load-runners",
   "version": "0.1.0",
   "description": "Helps wrap gulp orchestration and configuration in an easy to follow process",
   "main": "./dist/index.js",
