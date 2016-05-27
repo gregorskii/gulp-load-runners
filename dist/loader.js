@@ -46,6 +46,6 @@ exports.default = function () {
 
   var plugins = (0, _plugins2.default)(options.gulpLoadPluginsConfig || {});
   var config = (0, _config2.default)(options.configDir || configDir, options.projectConfig || {});
-  (0, _createTasks2.default)((0, _alias2.default)(options.aliasFile || aliasFile));
+  (0, _createTasks2.default)((0, _alias2.default)(options.aliasFile || aliasFile), gulp);
   (0, _tasks2.default)(options.taskDir || taskDir, gulp, plugins, config);
 };
