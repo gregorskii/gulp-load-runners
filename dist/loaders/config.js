@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.loadConfig = undefined;
 
 var _glob = require('glob');
 
@@ -11,7 +10,7 @@ var _glob2 = _interopRequireDefault(_glob);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var loadConfig = exports.loadConfig = function loadConfig(options, projectConfig) {
+exports.default = function (options, projectConfig) {
   var configs = _glob2.default.sync(options.configDir + '/**/*.js');
   var config = {};
   configs.forEach(function (file) {

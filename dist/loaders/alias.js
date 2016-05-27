@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.loadAliases = undefined;
 
 var _jsYaml = require('js-yaml');
 
@@ -15,7 +14,7 @@ var _fs2 = _interopRequireDefault(_fs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var loadAliases = exports.loadAliases = function loadAliases(aliasFile) {
+exports.default = function (aliasFile) {
   var aliases = void 0;
 
   try {
