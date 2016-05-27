@@ -10,7 +10,7 @@ var createRunnerTask = function createRunnerTask(gulp, plugins, name, tasks) {
   gulp.task(name, plugins.sequence.apply(null, tasks));
 };
 
-exports.default = function (gulp, aliases) {
+exports.default = function (aliases, gulp) {
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;
   var _iteratorError = undefined;
