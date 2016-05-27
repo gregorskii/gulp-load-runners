@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
 var _createTasks = require('./createTasks');
 
 var _createTasks2 = _interopRequireDefault(_createTasks);
@@ -24,17 +28,24 @@ var _tasks = require('./loaders/tasks');
 
 var _tasks2 = _interopRequireDefault(_tasks);
 
+var _helpers = require('./helpers');
+
+var _helpers2 = _interopRequireDefault(_helpers);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// setupEnv();
+var cwd = process.cwd();
 
-exports.default = function (gulp, options) {
-  var plugins = (0, _plugins2.default)(options.plugins);
-  var config = (0, _config2.default)(options.configDir, options.projectConfig);
-  (0, _createTasks2.default)((0, _alias2.default)(options.aliasFile));
-  (0, _tasks2.default)(options.taskDir, gulp, plugins, config);
-  return {
-    plugins: plugins,
-    config: config
-  };
+var configDir = _path2.default.join(cwd, 'gulp', 'config');
+var taskDir = _path2.default.join(cwd, 'gulp', 'tasks');
+var aliasFile = _path2.default.join(cwd, 'gulp', 'aliases.yml');
+
+exports.default = function () {
+  var gulp = arguments.length <= 0 || arguments[0] === undefined ? (0, _helpers2.default)() : arguments[0];
+  var options = arguments.length <= 1 || arguments[1] === undefined ? (0, _helpers2.default)() : arguments[1];
+
+  var plugins = (0, _plugins2.default)(options.gulpLoadPluginsConfig || {});
+  var config = (0, _config2.default)(options.configDir || configDir, options.projectConfig || {});
+  (0, _createTasks2.default)((0, _alias2.default)(options.aliasFile || aliasFile));
+  (0, _tasks2.default)(options.taskDir || taskDir, gulp, plugins, config);
 };
