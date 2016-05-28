@@ -10,13 +10,20 @@ var _glob2 = _interopRequireDefault(_glob);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (options, projectConfig) {
-  var configs = _glob2.default.sync(options.configDir + '/**/*.js');
+exports.default = function (configDir, projectConfig) {
+  var configs = _glob2.default.sync(configDir + '/**/*.js');
   var config = {};
+
   configs.forEach(function (file) {
     var name = /.+\/(.+)\.(js)/i.test(file) && RegExp.$1;
+
     if (name) {
       var imported = require(file);
+
+      if (imported.hasOwnProperty('default')) {
+        imported = imported.default;
+      }
+
       if (typeof imported === 'function') {
         config[name] = imported(projectConfig);
       } else {

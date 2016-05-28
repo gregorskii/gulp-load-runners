@@ -12,8 +12,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (taskDir, gulp, plugins, config) {
   var tasks = _glob2.default.sync(taskDir + '/**/*.js');
+
   tasks.forEach(function (file) {
     var imported = require(file);
+
+    if (imported.hasOwnProperty('default')) {
+      imported = imported.default;
+    }
+
     if (typeof imported === 'function') {
       imported(gulp, plugins, config);
     }

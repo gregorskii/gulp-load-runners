@@ -44,8 +44,12 @@ exports.default = function () {
   var gulp = arguments.length <= 0 || arguments[0] === undefined ? (0, _helpers2.default)() : arguments[0];
   var options = arguments.length <= 1 || arguments[1] === undefined ? (0, _helpers2.default)() : arguments[1];
 
-  var plugins = (0, _plugins2.default)(gulp, options.gulpLoadPluginsConfig || {});
+  var plugins = (0, _plugins2.default)(options.gulpLoadPluginsConfig || {});
   var config = (0, _config2.default)(options.configDir || configDir, options.projectConfig || {});
+  var aliases = (0, _alias2.default)(options.aliasFile || aliasFile);
+
+  console.log(options.configDir);
+
   (0, _tasks2.default)(options.taskDir || taskDir, gulp, plugins, config);
-  (0, _createTasks2.default)((0, _alias2.default)(options.aliasFile || aliasFile), gulp, plugins);
+  (0, _createTasks2.default)(aliases, gulp, plugins);
 };

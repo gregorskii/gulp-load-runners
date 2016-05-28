@@ -1,8 +1,21 @@
 {
-  "env": {},
-  "extends": "airbnb",
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "globals": {
+    "chai": true,
+    "expect": true,
+    "assert": true
+  },
+  "extends": "defaults/configurations/google",
   "parser": "babel-eslint",
   "rules": {
-    "comma-dangle": 0
-  }
+    "comma-dangle": 0,
+    "chai-expect/missing-assertion": 2,
+    "chai-expect/terminating-properties": 1
+  },
+  "plugins": [
+    "chai-expect"
+  ]
 }
