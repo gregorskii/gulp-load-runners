@@ -1,6 +1,6 @@
 {
   "name": "gulp-load-runners",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Helps wrap gulp orchestration and configuration in an easy to follow process",
   "main": "./dist/index.js",
   "homepage": "https://github.com/gregorskii/gulp-load-runners",

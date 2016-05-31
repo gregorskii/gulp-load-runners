@@ -213,14 +213,14 @@ no assumptions about how you setup your environment configuration or tasks, this
 Tasks are placed in files in `tasks` and expected to be a task with one default export:
 
 ```
-export default (gulp, plugins, config) => {
+export default (gulp, plugins, config, errorHandler) => {
   gulp.task('example', () => {
     console.log('Hello!');
   });
 };
 ```
 
-The tasks are automatically provided `gulp`, `plugins`, and `config` by this plugin.
+The tasks are automatically provided `gulp`, `plugins`, `config`, and `errorHandler` by this plugin.
 
 ### Config
 
@@ -239,6 +239,27 @@ export default (projectConfig) => {
 ```
 
 Where in the functional example `projectConfig` is provided to the configuration file upon loading.
+
+### Error Handling
+
+The plugin can also be used to pass through an error handler object to tasks. In my use case the errorHandler relies on gulp-util which is loaded by the `gulp-load-plugins` package.
+
+In this use case we can pass a object to `gulp-load-runners` that is called with the plugins object from `gulp-load-plugins`.
+
+In the example [errorHandler](https://github.com/gregorskii/gulp-load-runners/blob/master/example/gulp/util/errorHandler.js) we are relying on `node-notifier` and a custom exit level to determine if the task should stop, or continue on error. We provide the task a known errorHandler object with `onError`, `onWarning`, and `throwPluginError` functions. Since the goal of the error handler is beyond the scope of this plugin `gulp-load-runners` simply checks if the errorHandler being passed to it is a function, if it is it will call it with the loaded plugins and config.
+
+In this case any error handler is expected to be a default export that returns the error handler object or object literal of functions.
+
+Meaning it must be comprised of this pattern:
+
+```
+export default (plugins, config) => {
+  // DO SOMETHING
+  return THE_HANDLER;
+};
+```
+
+As the thing returned to the tasks will be "THE_HANDLER". This plugin makes no assumptions on what "THE_HANDLER" does. It does however force the use of a default export so it knows whether you need the plugins and the config when initializing the handler.
 
 ### Contributing
 
