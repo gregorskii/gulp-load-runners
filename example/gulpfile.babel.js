@@ -1,6 +1,7 @@
 import gulp from 'gulp';
 import gulpLoadRunners from '../dist/index';
 import projectConfig from './gulp/gulp.config';
+import errorHandler from './gulp/util/errorHandler';
 import path from 'path';
 
 const cwd = process.cwd();
@@ -21,6 +22,7 @@ const gulpLoadPluginsConfig = {
 };
 
 gulpLoadRunners(gulp, Object.assign({}, pathsConfig, {
+  errorHandler,
   gulpLoadPluginsConfig,
   projectConfig
 }));
