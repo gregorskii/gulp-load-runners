@@ -183,6 +183,63 @@ module.exports = {
 
 You can see a working example of the project at this repos [example directory](https://github.com/gregorskii/gulp-load-runners/tree/master/example).
 
+### Aliases
+
+The aliases file allows one to easily define the runner tasks. The file is setup as YML arrays where the async/sync nature of `gulp-sequence` is preserved in the YML configuration.
+
+For instance in this example:
+
+```
+default:
+  - 'bundle'
+
+bundle:
+  - 'clean'
+  - ['copy:images', 'copy:fonts', 'copy:views', 'sass', 'webpack']
+
+build:
+  - 'bundle'
+
+```
+
+The bundle task will run clean first, then the array group of other tasks.
+
+In the example configuration above the difference between the `default` task and `build` would be defined by an environment setting. Where `build` would build
+for production, and `default` would build for local, ignoring things like browserSync which are run using `watch`. As this is all a personal preference this plugin makes
+no assumptions about how you setup your environment configuration or tasks, this is an example of the workflow I use on projects.
+
+### Tasks
+
+Tasks are placed in files in `tasks` and expected to be a task with one default export:
+
+```
+export default (gulp, plugins, config) => {
+  gulp.task('example', () => {
+    console.log('Hello!');
+  });
+};
+```
+
+The tasks are automatically provided `gulp`, `plugins`, and `config` by this plugin.
+
+### Config
+
+Config files are placed in the `config` folder and are a module with either a object literal, or function export:
+
+```
+export default {
+  message: 'Hello World!'
+};
+```
+
+```
+export default (projectConfig) => {
+  message: 'Hello World!'
+};
+```
+
+Where in the functional example `projectConfig` is provided to the configuration file upon loading.
+
 ### Contributing
 
 Contributions are welcome as PR's. Please discuss any improvements and shortcomings to the plugin in the issues section. I have tried to make it as a transparent to a users process as possible, but discussions on improvement and assumptions made by the plugin are welcome.
