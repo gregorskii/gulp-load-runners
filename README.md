@@ -210,8 +210,8 @@ npm run build && git add . && git commit -m "MESSAGE" && git push origin master
 
 ### Contributors
 
-Greg Parsons (https://github.com/gregorskii)
-Mike Dyer (https://github.com/listenrightmeow)
+* Greg Parsons (https://github.com/gregorskii)
+* Mike Dyer (https://github.com/listenrightmeow)
 
 ### License
 
