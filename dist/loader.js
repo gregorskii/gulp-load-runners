@@ -71,8 +71,20 @@ exports.default = function () {
   // Load runner defintion object, provide aliasFile path
   var aliases = (0, _alias2.default)(options.aliasFile || aliasFile);
 
-  // Load tasks from taskDir, passing user provided gulp, loaded plugins and config
-  (0, _tasks2.default)(options.taskDir || taskDir, gulp, plugins, config);
+  var errorHandler = void 0;
+
+  // Create error handler if present passing it the plugins and config if a function
+  if (options.hasOwnProperty('errorHandler') && options.errorHandler) {
+    if (typeof options.errorHandler === 'function') {
+      errorHandler = options.errorHandler(plugins, config);
+    } else {
+      errorHandler = options.errorHandler;
+    }
+  }
+
+  // Load tasks from taskDir
+  // passing user provided gulp, loaded plugins, config, and errorHandler if present
+  (0, _tasks2.default)(options.taskDir || taskDir, gulp, plugins, config, errorHandler);
   (0, _createRunners2.default)(aliases, gulp, plugins);
 
   // Return the loaded plugins
