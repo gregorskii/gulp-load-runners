@@ -7,7 +7,8 @@
     "eslint": "eslint ./lib",
     "clean": "del ./dist",
     "babel": "babel lib --out-dir ./dist",
-    "build": "npm run clean && npm run eslint && npm run babel",
+    "build": "npm run clean && npm run eslint && npm run babel && npm run docs",
+    "docs": "jsdoc -c ./conf.json -d ./docs",
     "test": "mocha --require ./test/helpers/bootstrap.js --compilers js:babel-core/register --reporter spec test"
   },
   "contributors": [
@@ -39,6 +40,7 @@
     "eslint-plugin-chai-expect": "^1.1.1",
     "eslint-plugin-import": "^1.8.1",
     "gulp": "^3.9.1",
+    "jsdoc": "^3.4.0",
     "mocha": "^2.5.3"
   }
 }
