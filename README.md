@@ -6,33 +6,33 @@ This plugin is created to help users organize and simplify the loading of what w
 
 An example of a runner tasks would be a task called "build" that is expected to run a few common tasks like `clean`, `sass`, `js` and place the output of these tasks into a folder called `dist`. Typically in `gulp` each of these tasks `clean`, `js`, `sass` are created in as single tasks and a composite task called `build` is created to run them together.
 
-This plugin is similar in nature to the Grunt orchastrator [load-grunt-config](https://github.com/firstandthird/load-grunt-config) which does a bit more than load config.
+This plugin is similar in nature to the Grunt orchestrator [load-grunt-config](https://github.com/firstandthird/load-grunt-config) which does a bit more than load config.
 
-In that project an `alias.yml` file is created to help developers more easily combine common tasks into composite tasks. Grunt also relied heavily on a single config. The plugin allows a developer to define a single task configuration file in `config` and it would automatically load that file merge its exports into the combined grunt config and register a task that could be run. It would allow for ad hoc tasks to be created by exporting a function, where it would provide the `grunt` instance to it.
+In that project an `aliases.yml` file is created to help developers more easily combine common tasks into composite tasks. As Grunt relies heavily on a single config this was a lot easier in a `Grunt` project. The plugin allows a developer to define a single task configuration file in `config` and it would automatically load that file merge its exports into the combined grunt config and register a task that could be run. It would allow for ad-hoc tasks to be created by exporting a function, where it would provide the `grunt` instance to it.
 
-Gulp is a bit more complicated as all tasks are ad hoc, they do not rely on a config to allow `gulp` to run them. This can get cumbersome in `gulp` projects because the implementee is required to manage any common config outside of the core of `gulp`.
+Gulp is a bit more complicated as all tasks are ad-hoc, they do not rely on a config to allow `gulp` to run them. This can get cumbersome in a `gulp` project because the implementer is required to manage any common config outside of the core of `gulp`.
 
 `load-grunt-config` handled the complexity of managing config by providing the exports of the tasks config file to the task when it is run. This plugin does the same by allowing a `config` folder to be created which can house the specific config for each plugin defined by the user. With `gulp` however there can be a need to have a global config provided to each task as well. This global config would often hold the output path of all tasks, possible file matching globs, and top level source directories. This plugin allows for a user defined `projectConfig` to be passed through to the tasks as an argument.
 
 ### Project Goals
 
-The primary goal of this project is to orchastrate organization of a `gulp` project but not force any specific paradigms to the user besides beyond the injection of plugins via `gulp-load-plugins` and the use of `gulp-sequence` (and it providing that to your tasks via the `plugins` param). 
+The primary goal of this project is to orchestrate organization of a `gulp` project but not force any specific paradigms to the user beyond the injection of plugins via `gulp-load-plugins` and the use of `gulp-sequence` (and it providing that to your tasks via the `plugins` param).
 
-It makes no assumptions about what is contained in your projects config, it puts the onus on you to make sure the config is valid when passed back to your task.
+It makes no assumptions about:
 
-It makes no assumptions about how and what is being provided to the `projectConfig` argument, it simply provides it back to your tasks when being created.
+* what is contained in your projects config, it puts the onus on you to make sure the config is valid when passed back to your task
+* how and what is being provided to the `projectConfig` argument, it simply provides it back to your tasks when being created
+* what version of `gulp` is being used, it is an argument to the constructor
 
-It makes no assumptions about what version of `gulp` is being used, it is an argument to the constructor.
-
-It does provide a default version of `gulp-sequence` and `gulp-load-plugins`, where `gulp-sequence` can be overriden by your `package.json`, but `gulp-load-plugins` cannot, as it is used internally to load the plugins on its own, and your package.json.
+It does provide a default version of `gulp-sequence` and `gulp-load-plugins`, where `gulp-sequence` can be overridden over by your `package.json`, but `gulp-load-plugins` cannot, as it is used internally to load the plugins on its own, and your `package.json`.
 
 ### Project Setup
 
-A `gulp-load-runners` project would be setup similar to a project using [requireDir](https://github.com/aseemk/requireDir) where the gulp file sits at the root of a project, and a folder is created called `gulp`. This folder is a bit different because it is not just files that have exports. It has a few added directories/files:
+A `gulp-load-runners` project would be setup similar to a project using [requireDir](https://github.com/aseemk/requireDir) where the gulp file sits at the root of a project, and a folder is created called `gulp`. This folder is a bit different because it is not just files that have tasks as exports. It has a few added directories/files:
 
-* **tasks**: the tasks folder holds the ad-hoc tasks that would have existed in the `requireDir` base folder.
-* **config**: config files that are loaded and passed to the tasks in the tasks folder. These configs do not need a 1-1 mapping with the tasks in the `tasks` folder. The configs are simply loaded, merged, and passed to each task upon initialization through its exported function if it has one.
-* **aliases.yml**: the defintion of the runner tasks
+* **tasks**: the tasks folder holds the ad-hoc tasks that would have existed in the `requireDir` base folder
+* **config**: config files that are loaded and passed to the tasks in the tasks folder. These configs do not need a 1-1 mapping with the tasks in the `tasks` folder. The configs are simply loaded, merged, and passed to each task upon initialization through its exported function if it has one
+* **aliases.yml**: the definition of the runner tasks
 
 A typical folder structure may look like this:
 
@@ -48,7 +48,6 @@ A typical folder structure may look like this:
 │   ├── watch.js
 │   └── webpack.js
 ├── gulp.config.js
-├── gulp.env.js
 ├── tasks
 │   ├── clean.js
 │   ├── copy.js
@@ -99,20 +98,17 @@ export default (projectConfig) => {
 
 ```
 
-Where `projectConfig` is provided by the config loader in `gulp-load-runners` and is comprised of the `projectConfig` provided at intiialization in the `gulpfile.js`.
+Where `projectConfig` is provided by the config loader in `gulp-load-runners` and is comprised of the `projectConfig` provided at initialization in the `gulpfile.js`.
 
 A typical task would contain:
 
 ```
-import { onError } from '../util/errorHandler';
-
 export default (gulp, plugins, config) => {
   gulp.task('sass', () => {
     gulp.src(config.sass.paths)
       .pipe(plugins.gif(config.debugPaths, plugins.debug({title: 'FOUND (sass):'})))
       .pipe(plugins.sourcemaps.init())
       .pipe(plugins.sass(config.sass.settings))
-      .on('error', onError)
       .pipe(plugins.autoprefixer(config.sass.autoprefixer))
       .pipe(plugins.gif(process.env.debug, plugins.sourcemaps.write('.')))
       .pipe(plugins.gif(!process.env.debug, plugins.cleanCss(config.sass.clean)))
@@ -120,10 +116,9 @@ export default (gulp, plugins, config) => {
       .pipe(plugins.browserSync.stream({reload: true}));
   });
 };
-
 ```
 
-Where it was provided `gulp`, `plugins`, and `config` by `gulp-load-runners`. The errorHandler is a custom task provided to the module to handle error outputting and task errors through `gulp-util`. The next major update to this plugin will allow creation of this error handler once (defined by the user) and passed through to the task automatically.
+Where it was provided `gulp`, `plugins`, and `config` by `gulp-load-runners`.
 
 The `gulpfile.js` contains:
 
