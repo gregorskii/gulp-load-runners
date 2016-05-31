@@ -182,3 +182,31 @@ module.exports = {
 ```
 
 You can see a working example of the project at this repos [example directory](https://github.com/gregorskii/gulp-load-runners/tree/master/example).
+
+### Contributing
+
+Contributions are welcome as PR's. Please discuss any improvements and shortcomings to the plugin in the issues section. I have tried to make it as a transparent to a users process as possible, but discussions on improvement and assumptions made by the plugin are welcome.
+
+To develop for this plugin please check out the repo, install the deps, and then use the npm config tasks:
+
+* build - will run eslint, unit tests, create jsdocs, and compile the lib folder into dist via Babel
+* test - will run the unit tests
+* docs - will build the jsdocs
+* clean - will delete `dist` using `del-cli`
+* eslint - will run eslint
+* babel - will compile with Babel
+
+Example:
+
+```
+npm run build
+```
+
+### Contributors
+
+Greg Parsons (https://github.com/gregorskii)
+Mike Dyer (https://github.com/listenrightmeow)
+
+### License
+
+[MIT](https://opensource.org/licenses/MIT)
