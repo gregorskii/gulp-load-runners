@@ -5,7 +5,7 @@ import path from 'path';
 const cwd = process.cwd();
 
 const pathsConfig = {
-  aliasFile: path.join(cwd, 'example', 'gulp', 'aliases.yml'),
+  runnerFile: path.join(cwd, 'example', 'gulp', 'runners.yml'),
   configDir: path.join(cwd, 'example', 'gulp', 'config'),
   taskDir: path.join(cwd, 'example', 'gulp', 'tasks')
 };

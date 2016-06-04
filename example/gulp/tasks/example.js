@@ -1,7 +1,4 @@
-import gulp from 'gulp';
-
-export default (gulp, plugins, config, errorHandler) => {
-  console.log(errorHandler);
+module.exports = (gulp, plugins, config, errorHandler) => {
   gulp.task('example', () => {
     console.log(config.example.message);
   });
