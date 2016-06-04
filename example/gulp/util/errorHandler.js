@@ -1,13 +1,12 @@
 /* eslint "no-process-exit": 0, "object-shorthand": 0, "func-names": 0 */
 
-import notifier from 'node-notifier';
-import path from 'path';
-
+const notifier = require('node-notifier');
+const path = require('path');
 const cwd = process.cwd();
 const ERROR_LEVELS = ['fatal', 'error', 'warning'];
 const EXIT_LEVEL = process.env.fatal || 'error';
 
-export default (plugins) => {
+module.exports = (plugins) => {
   function shouldExit(level) {
     return ERROR_LEVELS.indexOf(level) <= ERROR_LEVELS.indexOf(EXIT_LEVEL);
   }

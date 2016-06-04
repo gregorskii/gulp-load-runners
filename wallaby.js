@@ -5,16 +5,24 @@ module.exports = (wallaby) => {
     debug: true,
 
     files: [
-      'lib/**/*.js'
+      {pattern: 'node_modules/mocha/**/*.js', instrument: false},
+      {pattern: 'node_modules/chai/**/*.js', instrument: false},
+      {pattern: 'node_modules/gulp/**/*.js', instrument: false},
+      {pattern: 'node_modules/gulp-sequence/**/*.js', instrument: false},
+      {
+        pattern: 'node_modules/gulp-load-plugins/**/*.js',
+        instrument: false
+      },
+      {pattern: 'lib/**/*.js'},
+      {pattern: 'example/**', instrument: false},
+      {pattern: 'package.json', instrument: false},
+      {pattern: 'test/helpers/*.js'},
+      {pattern: 'test/badyml.yml', instrument: false},
+      {pattern: 'test/bootstrap/*.js', instrument: false}
     ],
 
     tests: [
-      {pattern: 'node_modules/gulp/index.js', instrument: false, ignore: true},
-      {pattern: 'node_modules/gulp-sequence/index.js', instrument: false},
-      {pattern: 'test/helpers/*.js', instrument: false},
-      {pattern: 'package.json', instrument: false},
-      'example/**/*.{js,yml}',
-      'test/**/*-spec.js'
+      {pattern: 'test/**/*-spec.js'}
     ],
 
     env: {
@@ -23,10 +31,8 @@ module.exports = (wallaby) => {
 
     testFramework: 'mocha',
 
-    setup: (wallaby) => {
-      global.chai = require('chai');
-      global.expect = chai.expect;
-      global.assert = chai.assert;
+    setup: () => {
+      require('./test/bootstrap/includeGlobals.js');
     },
 
     compilers: {

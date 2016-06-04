@@ -12,9 +12,9 @@ var _createRunners = require('./createRunners');
 
 var _createRunners2 = _interopRequireDefault(_createRunners);
 
-var _alias = require('./loaders/alias');
+var _runners = require('./loaders/runners');
 
-var _alias2 = _interopRequireDefault(_alias);
+var _runners2 = _interopRequireDefault(_runners);
 
 var _plugins = require('./loaders/plugins');
 
@@ -38,14 +38,14 @@ var cwd = process.cwd();
 
 var configDir = _path2.default.join(cwd, 'gulp', 'config');
 var taskDir = _path2.default.join(cwd, 'gulp', 'tasks');
-var aliasFile = _path2.default.join(cwd, 'gulp', 'aliases.yml');
+var runnerFile = _path2.default.join(cwd, 'gulp', 'runners.yml');
 
 /**
  * Task Loader
  * @module Tasks
  * @see loaders:tasks
  * @description Sets up the loader, checks incoming options and defines defaults
- * for `configDir`, `taskDir`, and `aliasFile` if not provided.
+ * for `configDir`, `taskDir`, and `runnerFile` if not provided.
  * @param {Object} gulp the user provided gulp instance
  * @param {Object} options this plugins options
  * @returns {Object} The plugins loaded by `gulp-load-plugins`
@@ -68,8 +68,8 @@ exports.default = function () {
   var plugins = (0, _plugins2.default)(options.gulpLoadPluginsConfig || {});
   // Load config providing configDir and projectConfig
   var config = (0, _config2.default)(options.configDir || configDir, options.projectConfig || {});
-  // Load runner defintion object, provide aliasFile path
-  var aliases = (0, _alias2.default)(options.aliasFile || aliasFile);
+  // Load runner defintion object, provide runnerFile path
+  var runners = (0, _runners2.default)(options.runnerFile || runnerFile);
 
   var errorHandler = void 0;
 
@@ -85,7 +85,7 @@ exports.default = function () {
   // Load tasks from taskDir
   // passing user provided gulp, loaded plugins, config, and errorHandler if present
   (0, _tasks2.default)(options.taskDir || taskDir, gulp, plugins, config, errorHandler);
-  (0, _createRunners2.default)(aliases, gulp, plugins);
+  (0, _createRunners2.default)(runners, gulp, plugins);
 
   // Return the loaded plugins
   return plugins;
