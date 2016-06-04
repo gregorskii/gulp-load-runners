@@ -15,11 +15,13 @@ module.exports = (wallaby) => {
       },
       {pattern: 'lib/**/*.js'},
       {pattern: 'example/**', instrument: false},
-      {pattern: 'package.json', instrument: false}
+      {pattern: 'package.json', instrument: false},
+      {pattern: 'test/helpers/*.js'},
+      {pattern: 'test/badyml.yml', instrument: false},
+      {pattern: 'test/bootstrap/*.js', instrument: false}
     ],
 
     tests: [
-      {pattern: 'test/helpers/*.js', instrument: false},
       {pattern: 'test/**/*-spec.js'}
     ],
 
@@ -29,8 +31,8 @@ module.exports = (wallaby) => {
 
     testFramework: 'mocha',
 
-    setup: (wallaby) => {
-      require('./test/helpers/bootstrap.js');
+    setup: () => {
+      require('./test/bootstrap/includeGlobals.js');
     },
 
     compilers: {

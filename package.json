@@ -24,7 +24,7 @@
     "babel": "babel lib --out-dir ./dist",
     "build": "npm run clean && npm run eslint && npm run babel && npm run docs",
     "docs": "del ./docs && jsdoc -c ./conf.json -d ./docs",
-    "test": "mocha --require ./test/helpers/bootstrap.js --compilers js:babel-core/register --reporter spec test"
+    "test": "mocha --require ./test/bootstrap/includeGlobals.js --compilers js:babel-core/register --reporter spec test"
   },
   "contributors": [
     {
@@ -50,13 +50,16 @@
     "babel-register": "^6.9.0",
     "chai": "^3.5.0",
     "del-cli": "^0.2.0",
-    "eslint": "^2.10.2",
+    "eslint": "^2.11.1",
     "eslint-config-defaults": "^9.0.0",
     "eslint-plugin-chai-expect": "^1.1.1",
     "eslint-plugin-import": "^1.8.1",
     "gulp": "^3.9.1",
     "jsdoc": "^3.4.0",
     "mocha": "^2.5.3",
-    "node-notifier": "^4.6.0"
+    "node-notifier": "^4.6.0",
+    "proxyquire": "^1.7.9",
+    "sinon": "^1.17.4",
+    "sinon-chai": "^2.8.0"
   }
 }

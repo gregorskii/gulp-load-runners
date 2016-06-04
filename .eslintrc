@@ -6,9 +6,11 @@
   "globals": {
     "chai": true,
     "expect": true,
-    "assert": true
+    "assert": true,
+    "sinon": true,
+    "sinonChai": true
   },
-  "extends": "defaults/configurations/google",
+  "extends": "defaults",
   "parser": "babel-eslint",
   "rules": {
     "comma-dangle": 0,
