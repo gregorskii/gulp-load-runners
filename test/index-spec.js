@@ -5,9 +5,9 @@ import path from 'path';
 const cwd = process.cwd();
 
 const pathsConfig = {
-  aliasFile: path.join(cwd, 'example', 'aliases.yml'),
-  configDir: path.join(cwd, 'example', 'config'),
-  taskDir: path.join(cwd, 'example', 'tasks')
+  aliasFile: path.join(cwd, 'example', 'gulp', 'aliases.yml'),
+  configDir: path.join(cwd, 'example', 'gulp', 'config'),
+  taskDir: path.join(cwd, 'example', 'gulp', 'tasks')
 };
 
 const pluginsConfig = {
