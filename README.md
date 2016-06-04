@@ -1,5 +1,7 @@
 ## Gulp Load Runners
 
+[![Build Status](https://travis-ci.org/gregorskii/gulp-load-runners.svg?branch=master)](https://travis-ci.org/gregorskii/gulp-load-runners)
+
 ### Background
 
 This plugin is created to help users organize and simplify the loading of what we term "runner tasks". These tasks are tasks that orchestrate the running of multiple processes to complete an end goal for a project.
