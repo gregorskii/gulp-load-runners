@@ -8,6 +8,10 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
+var _gulpLoadPlugins = require('gulp-load-plugins');
+
+var _gulpLoadPlugins2 = _interopRequireDefault(_gulpLoadPlugins);
+
 var _createRunners = require('./createRunners');
 
 var _createRunners2 = _interopRequireDefault(_createRunners);
@@ -65,7 +69,7 @@ exports.default = function () {
   }
 
   // Load plugins, provide gulpLoadPluginsConfig
-  var plugins = (0, _plugins2.default)(options.gulpLoadPluginsConfig || {});
+  var plugins = (0, _plugins2.default)(_gulpLoadPlugins2.default, options.gulpLoadPluginsConfig || {});
   // Load config providing configDir and projectConfig
   var config = (0, _config2.default)(options.configDir || configDir, options.projectConfig || {});
   // Load runner defintion object, provide runnerFile path

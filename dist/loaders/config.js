@@ -33,12 +33,6 @@ exports.default = function (configDir, projectConfig) {
       // Load it
       var imported = require(file);
 
-      // Check if the user is using `module.exports` in their tasks, with import
-      // above task will come in with a .default
-      if (imported.hasOwnProperty('default')) {
-        imported = imported.default;
-      }
-
       // If the export is a function pass it the current projectConfig
       if (typeof imported === 'function') {
         config[name] = imported(projectConfig);

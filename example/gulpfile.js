@@ -1,9 +1,11 @@
 const gulp = require('gulp');
-const gulpLoadRunners = require('../lib/index');
+const gulpLoadRunners = require('../dist/index');
 const projectConfig = require('./gulp/gulp.config');
 const errorHandler = require('./gulp/util/errorHandler');
 const path = require('path');
 const cwd = process.cwd();
+
+console.log(gulpLoadRunners);
 
 const pathsConfig = {
   runnersFile: path.join(cwd, 'gulp', 'runners.yml'),
