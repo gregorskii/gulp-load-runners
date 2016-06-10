@@ -1,6 +1,10 @@
 # Change Log
 Change log for `gulp-load-runners`.
 
+## [0.2.1] - 2016-09-06
+### Added
+- adding missing js-yaml dep
+
 ## [0.2.1] - 2016-04-06
 ### Updates
 - Readme updates for 0.2.0
