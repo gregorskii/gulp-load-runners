@@ -1,6 +1,6 @@
 {
   "name": "gulp-load-runners",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Helps wrap gulp orchestration and configuration in an easy to follow process",
   "main": "./dist/index.js",
   "homepage": "https://github.com/gregorskii/gulp-load-runners",
@@ -41,7 +41,8 @@
   "dependencies": {
     "glob": "^7.0.3",
     "gulp-load-plugins": "^1.2.4",
-    "gulp-sequence": "^0.4.5"
+    "gulp-sequence": "^0.4.5",
+    "js-yaml": "^3.6.1"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
