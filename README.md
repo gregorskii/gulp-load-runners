@@ -21,7 +21,7 @@ This plugin uses `gulp-load-plugins` under the hood to load the calling projects
 
 Gulp is a bit more complicated than `Grunt` as all tasks are ad-hoc, and they do not rely on a config to allow `gulp` to run them. This can get cumbersome in a `gulp` project because the implementer is required to manage any common config outside of the core API of `gulp`.
 
-This plugin provides a place to put project, and task based config. Task based config can be stored in single files under the folder `gulp/config`. 
+This plugin provides a place to put project, and task based config. Task based config can be stored in single files under the folder `gulp/config`.
 A project config can be merged into the task configs by providing a path to a JS file that exports a POJO. The global config can hold anything you want, most commonly used in our projects are; src/dist folders, file matching globs, and task source directories.
 
 This plugin also provides a common place to put tasks, and automatically loads them into Gulp and provides them the `Gulp` object, the project and task configs, the projects `Gulp` plugins, and an optional `errorHandling` function.
@@ -218,6 +218,34 @@ The bundle task will run clean first, then the array group of other tasks.
 
 In the example configuration above the difference between the `default` task and `build` would be defined by an environment setting. Where `build` would build
 for production, and `default` would build for local, ignoring things like browserSync which are run using `watch`. As this is all a personal preference this plugin makes no assumptions about how you setup your environment configuration or tasks, this is an example of the workflow I use on projects.
+
+#### Parallel and Series Tasks
+
+Given:
+
+```
+test:
+  - 'test1'
+  - 'test2'
+  - 'test3'
+  - 'test4'
+  - 'test5'
+  - 'test6'
+
+test2:
+  - ['test1', 'test2', 'test3', 'test4']
+
+test3:
+  -
+    - 'test1'
+    - 'test2'
+    - 'test3'
+    - 'test4'
+
+```
+
+The task list is provided to the plugin as an array and gulp-sequence .apply() is used. To get parallel tasks you must setup an array to be applied to
+sequence. Note that for long task names a nested YML array is better. See that example "test2" and example "test3" are the same. The tasks 1-4 will be run in parallel.
 
 ### Tasks
 
